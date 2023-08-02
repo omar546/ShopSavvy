@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'colors.dart';
 MaterialColor customColorOrange = const MaterialColor(0xFFFF3C38, {
   50: Color(0xffffeceb),
@@ -16,15 +15,15 @@ MaterialColor customColorOrange = const MaterialColor(0xFFFF3C38, {
 });
 
 ThemeData lightTheme = ThemeData(
-  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-    elevation: 30,
-    backgroundColor: MyColors.whiteColor,
-    type: BottomNavigationBarType.fixed,
-    selectedItemColor: MyColors.fire,
-    unselectedItemColor: MyColors.greyColor,
-    selectedLabelStyle: TextStyle(fontFamily: 'wilson'),
-    unselectedLabelStyle: TextStyle(fontFamily: 'wilson'),
-  ),
+  // bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+  //   elevation: 30,
+  //   backgroundColor: MyColors.whiteColor,
+  //   type: BottomNavigationBarType.fixed,
+  //   selectedItemColor: MyColors.fire,
+  //   unselectedItemColor: MyColors.greyColor,
+  //   selectedLabelStyle: TextStyle(fontFamily: 'wilson'),
+  //   unselectedLabelStyle: TextStyle(fontFamily: 'wilson'),
+  // ),
   appBarTheme: const AppBarTheme(
     iconTheme: IconThemeData(color: MyColors.fire),
     systemOverlayStyle: SystemUiOverlayStyle(
@@ -33,32 +32,32 @@ ThemeData lightTheme = ThemeData(
     ),
     backgroundColor: MyColors.whiteColor,
     elevation: 0.0,
-    titleTextStyle: TextStyle(color: MyColors.fire),
+    titleTextStyle: TextStyle(color: MyColors.blackColor),
   ),
   scaffoldBackgroundColor: MyColors.whiteColor,
   primarySwatch:customColorOrange,
   textTheme: TextTheme(
-    bodyMedium: TextStyle(
+    bodyMedium: const TextStyle(
         color: MyColors.blackColor,
-        fontFamily: 'bitter',fontSize: 16),
+        fontFamily: 'bitter-bold'),
     bodySmall: TextStyle(
         color: MyColors.blackColor.withOpacity(0.5),
-        fontFamily: 'bitter-thin',fontSize: 11),
+        fontFamily: 'bitter'),
 
   ),
 );
 ThemeData darkTheme = ThemeData(
-    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      elevation: 30,
-      backgroundColor: MyColors.blackColor,
-      type: BottomNavigationBarType.fixed,
-      selectedItemColor: MyColors.fire,
-      unselectedItemColor: MyColors.greyColor,
-      selectedLabelStyle: TextStyle(fontFamily: 'wilson'),
-      unselectedLabelStyle: TextStyle(fontFamily: 'wilson'),
-    ),
+    // bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+    //   elevation: 30,
+    //   backgroundColor: MyColors.blackColor,
+    //   type: BottomNavigationBarType.fixed,
+    //   selectedItemColor: MyColors.fire,
+    //   unselectedItemColor: MyColors.greyColor,
+    //   selectedLabelStyle: TextStyle(fontFamily: 'wilson'),
+    //   unselectedLabelStyle: TextStyle(fontFamily: 'wilson'),
+    // ),
     appBarTheme: const AppBarTheme(
-      iconTheme: IconThemeData(color: MyColors.fire),
+      iconTheme: IconThemeData(color: MyColors.whiteColor),
 
       systemOverlayStyle: SystemUiOverlayStyle(
         statusBarColor: MyColors.blackColor,
@@ -71,12 +70,12 @@ ThemeData darkTheme = ThemeData(
     ),
     scaffoldBackgroundColor: MyColors.blackColor,
     primarySwatch:customColorOrange,
-    textTheme: TextTheme(bodyMedium:  TextStyle(
+    textTheme: TextTheme(bodyMedium:  const TextStyle(
         color: MyColors.whiteColor,
-        fontFamily: 'bitter',fontSize: 16),
+        fontFamily: 'bitter-bold'),
       bodySmall: TextStyle(
           color: MyColors.greyColor.withOpacity(0.5),
-          fontFamily: 'bitter-thin',fontSize: 11),
+          fontFamily: 'bitter'),
 
 
     )
