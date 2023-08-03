@@ -1,14 +1,14 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_savvy/modules/login/cubit/login_cubit.dart';
+import 'package:shop_savvy/modules/login/cubit/login_states.dart';
 
-import '../../shared/styles/colors.dart';
+import '../../shared/components/components.dart';
+import '../register/register_screen.dart';
 
-class LoginScreen extends StatefulWidget
-{
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
+class LoginScreen extends StatelessWidget {
 
-class _LoginScreenState extends State<LoginScreen> {
   var emailController = TextEditingController();
 
   var passwordController = TextEditingController();
@@ -17,180 +17,162 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool isPassword = true;
 
+  LoginScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        elevation: 0.0,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Shop',
-              style: TextStyle(fontSize: 30,fontFamily: 'bebas'),
-            ),
-            Text(
-              'Savvy',
-              style: TextStyle(fontSize: 30,fontFamily: 'futura'),
-            ),
-          ],
-        ),
-        backgroundColor: Colors.transparent,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Form(
-              key:formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+    return BlocProvider(
+      create: (BuildContext context) => ShopLoginCubit(ShopLoginInitialState()),
+      child: BlocConsumer<ShopLoginCubit, ShopLoginStates>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          return Scaffold(
+            appBar: AppBar(
+              automaticallyImplyLeading: false,
+              elevation: 0.0,
+              title: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                children: const [
                   Text(
-                    'Login',
-                    style: TextStyle(
-                      fontSize: 30.0,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    'Shop',
+                    style: TextStyle(fontSize: 30, fontFamily: 'bebas'),
                   ),
-                  SizedBox(
-                    height: 40.0,
-                  ),
-                  TextFormField(
-                    controller: emailController,
-                    keyboardType: TextInputType.emailAddress,
-                    onFieldSubmitted: (String value)
-                    {
-                      print(value);
-                    },
-                    onChanged: (String value)
-                    {
-                      print(value);
-                    },
-                    validator: (value)
-                    {
-                      if(value!.isEmpty){
-                        return "email must not be empty";
-                      }
-                      else
-                        return null;
-                    },
-                    decoration: InputDecoration(
-                      labelText: 'Email Address',
-                      labelStyle: TextStyle(),
-                      prefixIcon: Icon(
-                        Icons.email,
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(25.0),
-                        borderSide: BorderSide(
-                          color: MyColors.greyColor,
-                          width: 2.0,
-                        ),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: MyColors.fire,),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15.0,
-                  ),
-                  TextFormField(
-                    controller: passwordController,
-                    keyboardType: TextInputType.visiblePassword,
-                    obscureText: isPassword,
-                    onFieldSubmitted: (String value)
-                    {
-                      print(value);
-                    },
-                    onChanged: (String value)
-                    {
-                      print(value);
-                    },
-                    validator: (value)
-                    {
-                      if(value!.isEmpty){
-                        return "password must not be empty";
-                      }
-                      else
-                        return null;
-                    },
-                    decoration: InputDecoration(
-                      labelText: 'Password',
-                      labelStyle: TextStyle(),
-                      prefixIcon: Icon(
-                        Icons.lock,
-                      ),
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                            isPassword ? Icons.visibility_off : Icons.visibility
-                        ), onPressed: () { setState(() {
-                        isPassword = !isPassword;
-                      }); },
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(25.0),
-                        borderSide: BorderSide(
-                          color: MyColors.greyColor,
-                          width: 2.0,
-                        ),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color:MyColors.fire,),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20.0,
-                  ),
-                  Container(
-                    height: 50.0,
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(shape: StadiumBorder(),backgroundColor: MyColors.fire),
-                      onPressed: ()
-                      {
-                        if(formKey.currentState!.validate()){
-                          print(emailController.text);
-                          print(passwordController.text);
-                          // Navigator. push(context, MaterialPageRoute(builder: (BuildContext context){ return MessengerScreen(); }));
-
-
-                        }
-
-                      },
-                      child: Text(
-                        'LOGIN',
-                        style: TextStyle(
-                          color: Theme.of(context).scaffoldBackgroundColor,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                          'Don\'t have an account?'
-                      ),
-                      TextButton(onPressed: (){},
-                        child: Text(
-                          'Register Now!',style: TextStyle(color: Colors.blue),
-                        ),
-                      ),
-                    ],
+                  Text(
+                    'Savvy',
+                    style: TextStyle(fontSize: 30, fontFamily: 'futura'),
                   ),
                 ],
               ),
+              backgroundColor: Colors.transparent,
             ),
-          ),
-        ),
+            body: Padding(
+              padding: const EdgeInsets.all(30.0),
+              child: Center(
+                child: SingleChildScrollView(
+                  child: Form(
+                    key: formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'Login',
+                          style: TextStyle(
+                            fontSize: 30.0,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 5.0,
+                        ),
+                        const Text(
+                          'Join now to browse our hot offers!',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        const SizedBox(
+                          height: 40.0,
+                        ),
+                        customForm(
+                          context: context,
+                          label: 'Email Address',
+                          controller: emailController,
+                          type: TextInputType.emailAddress,
+                          onSubmit: (String value) {
+                            print(value);
+                          },
+                          onChange: (String value) {
+                            print(value);
+                          },
+                          validate: (value) {
+                            if (value!.isEmpty) {
+                              return "email must not be empty";
+                            } else {
+                              return null;
+                            }
+                          },
+                          prefix: Icons.alternate_email_rounded,
+                        ),
+                        const SizedBox(
+                          height: 15.0,
+                        ),
+                        customForm(
+                          context: context,
+                          label: 'Password',
+                          controller: passwordController,
+                          type: TextInputType.visiblePassword,
+                          suffix: ShopLoginCubit.get(context).suffix,
+                          onSubmit: (value)
+                          {
+                            if(formKey.currentState!.validate())
+                            {
+                              ShopLoginCubit.get(context).userLogin(
+                                email: emailController.text,
+                                password: passwordController.text,
+                              );
+                            }
+                          },
+                          onChange: (String value) {
+                            print(value);
+                          },
+                          validate: (value) {
+                            if (value!.isEmpty) {
+                              return "your password is shorty!";
+                            } else {
+                              return null;
+                            }
+                          },
+                          prefix: Icons.password_rounded,
+                          isPassword: ShopLoginCubit.get(context).isPassword,
+                          suffixPressed: ()
+                          {
+                            ShopLoginCubit.get(context).changePasswordVisibility();
+                          },
+                        ),
+                        const SizedBox(
+                          height: 15.0,
+                        ),
+                        Center(
+                          child: ConditionalBuilder(
+                              condition: state is! ShopLoginLoadingState,
+                              builder: (context) => customButton(
+                                  widthRatio: 0.6,
+                                  context: context,
+                                  text: "LOGIN",
+                                  onPressed: () {
+                                    if(formKey.currentState!.validate())
+                                    {
+                                      ShopLoginCubit.get(context).userLogin(
+                                          email: emailController.text,
+                                          password: passwordController.text);
+                                    }
+
+                                  }),
+                              fallback: (context) =>
+                                  CircularProgressIndicator()),
+                        ),
+                        const SizedBox(
+                          height: 10.0,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text('Don\'t have an account?'),
+                            customTextButton(
+                              onPressed: () {
+                                navigateTo(context, const RegisterScreen());
+                              },
+                              text: 'REGISTER',
+                              color: Colors.lightBlue,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }

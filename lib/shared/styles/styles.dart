@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'colors.dart';
+
 MaterialColor customColorOrange = const MaterialColor(0xFFFF3C38, {
   50: Color(0xffffeceb),
   100: Color(0xffffd8d7),
@@ -35,16 +36,18 @@ ThemeData lightTheme = ThemeData(
     titleTextStyle: TextStyle(color: MyColors.blackColor),
   ),
   scaffoldBackgroundColor: MyColors.whiteColor,
-  primarySwatch:customColorOrange,
+  primarySwatch: customColorOrange,
   textTheme: TextTheme(
-    bodyMedium: const TextStyle(
-        color: MyColors.blackColor,
-        fontFamily: 'bitter-bold'),
+    bodyMedium:
+        const TextStyle(color: MyColors.blackColor, fontFamily: 'bitter-bold'),
     bodySmall: TextStyle(
-        color: MyColors.blackColor.withOpacity(0.5),
-        fontFamily: 'bitter'),
-
+        color: MyColors.blackColor.withOpacity(0.5), fontFamily: 'bitter'),
   ),
+    inputDecorationTheme: InputDecorationTheme(
+        prefixIconColor: MyColors.blackColor,
+        suffixIconColor: MyColors.blackColor,
+        labelStyle: TextStyle(color: MyColors.blackColor),
+    )
 );
 ThemeData darkTheme = ThemeData(
     // bottomNavigationBarTheme: const BottomNavigationBarThemeData(
@@ -58,26 +61,23 @@ ThemeData darkTheme = ThemeData(
     // ),
     appBarTheme: const AppBarTheme(
       iconTheme: IconThemeData(color: MyColors.whiteColor),
-
       systemOverlayStyle: SystemUiOverlayStyle(
         statusBarColor: MyColors.blackColor,
         statusBarIconBrightness: Brightness.light,
       ),
       backgroundColor: MyColors.blackColor,
       elevation: 0.0,
-      titleTextStyle: TextStyle(color: MyColors.fire),
-
+      titleTextStyle: TextStyle(color: MyColors.whiteColor),
     ),
     scaffoldBackgroundColor: MyColors.blackColor,
-    primarySwatch:customColorOrange,
-    textTheme: TextTheme(bodyMedium:  const TextStyle(
-        color: MyColors.whiteColor,
-        fontFamily: 'bitter-bold'),
+    primarySwatch: customColorOrange,
+    textTheme: TextTheme(
+      bodyMedium: const TextStyle(
+          color: MyColors.whiteColor, fontFamily: 'bitter-bold'),
       bodySmall: TextStyle(
-          color: MyColors.greyColor.withOpacity(0.5),
-          fontFamily: 'bitter'),
-
-
-    )
-
-);
+          color: MyColors.greyColor.withOpacity(0.5), fontFamily: 'bitter'),
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+        prefixIconColor: MyColors.greyColor,
+        suffixIconColor: MyColors.greyColor,
+        labelStyle: TextStyle(color: MyColors.greyColor)));
