@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_savvy/models/login_model.dart';
 import 'package:shop_savvy/modules/login/cubit/login_states.dart';
 import 'package:shop_savvy/shared/network/end_points.dart';
 import 'package:shop_savvy/shared/network/remote/dio_helper.dart';
 
 class ShopLoginCubit extends Cubit<ShopLoginStates>{
   ShopLoginCubit(super.initialState);
+
 static ShopLoginCubit get(context) => BlocProvider.of(context);
+
+late LoginModel loginModel;
+
 void userLogin({
   required String email,
   required String password,
@@ -20,7 +25,8 @@ void userLogin({
     'password':password,
   }).then((value){
     print(value.data);
-    emit(ShopLoginSuccessState());
+    loginModel = LoginModel.formJson(value.data);
+    emit(ShopLoginSuccessState(loginModel));
   }).catchError((error){
     print(error.toString());
     emit(ShopLoginErrorState(error.toString()));

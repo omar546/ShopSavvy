@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_savvy/modules/login/login_screen.dart';
 import 'package:shop_savvy/shared/components/components.dart';
+import 'package:shop_savvy/shared/network/local/cache_helper.dart';
 import 'package:shop_savvy/shared/styles/colors.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -13,6 +14,8 @@ class BoardingModel {
 }
 
 class OnBoardingScreen extends StatefulWidget {
+  const OnBoardingScreen({super.key});
+
   @override
   State<OnBoardingScreen> createState() => _OnBoardingScreenState();
 }
@@ -36,6 +39,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   ];
 
   bool isLast = false;
+  void submit()
+  {
+    CacheHelper.saveData(key: 'onBoarding', value: true).then((value){if(value){ navigateAndFinish(context, LoginScreen());}});
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +52,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         actions: [
           customTextButton(
               onPressed: () {
-                navigateAndFinish(context, LoginScreen());
+                submit();
               },
               text: 'Skip'),
         ],
@@ -66,20 +74,20 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     });
                   }
                 },
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 controller: boardController,
                 itemBuilder: (context, index) =>
                     buildOnBoardingItem(boarding[index]),
                 itemCount: boarding.length,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
             Row(
               children: [
                 SmoothPageIndicator(
-                  effect: ExpandingDotsEffect(
+                  effect: const ExpandingDotsEffect(
                     dotHeight: 10,
                     expansionFactor: 4,
                     dotWidth: 10,
@@ -90,15 +98,15 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   controller: boardController,
                   count: boarding.length,
                 ),
-                Spacer(),
+                const Spacer(),
                 FloatingActionButton(
                   backgroundColor: MyColors.fire,
                   onPressed: () {
                     if (isLast) {
-                      navigateAndFinish(context, LoginScreen());
+                      submit();
                     } else {
                       boardController.nextPage(
-                          duration: Duration(milliseconds: 750),
+                          duration: const Duration(milliseconds: 750),
                           curve: Curves.fastLinearToSlowEaseIn);
                     }
                   },
@@ -119,19 +127,19 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-              child: Center(child: Image(image: AssetImage('${model.image}')))),
+              child: Center(child: Image(image: AssetImage(model.image)))),
           Text(
-            '${model.title}',
-            style: TextStyle(
+            model.title,
+            style: const TextStyle(
               fontSize: 24,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           Text(
-            '${model.body}',
-            style: TextStyle(fontSize: 14),
+            model.body,
+            style: const TextStyle(fontSize: 14),
           )
         ],
       );
