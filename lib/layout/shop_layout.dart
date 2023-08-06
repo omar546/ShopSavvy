@@ -41,25 +41,31 @@ class ShopLayout extends StatelessWidget {
           ]),
           body: cubit.Screens[cubit.currentIndex],
           bottomNavigationBar: BottomNavigationBar(
+            showUnselectedLabels: false,
+
             currentIndex: cubit.currentIndex,
             onTap: (index){
               cubit.changeBottom(index);
             },
             items: [
               BottomNavigationBarItem(
-                icon: Icon(Icons.home_rounded),
+                activeIcon: Icon(Icons.home_rounded),
+                icon: Icon(Icons.home_outlined),
             label:'Home',
             ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.category_rounded),
+                activeIcon: Icon(Icons.category_rounded),
+                icon:Icon(Icons.category_outlined),
             label:'Categories',
             ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.favorite_rounded),
+                activeIcon: Icon(Icons.favorite_rounded),
+                icon: Icon(Icons.favorite_outline_rounded),
             label:'Favourites',
             ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.settings),
+                icon: Icon(Icons.settings_outlined),
+                activeIcon: Icon(Icons.settings),
             label:'Settings',
             ),
             ],
