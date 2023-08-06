@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_savvy/layout/shop_layout.dart';
 import 'package:shop_savvy/modules/login/cubit/login_cubit.dart';
 import 'package:shop_savvy/modules/login/cubit/login_states.dart';
 import 'package:shop_savvy/modules/login/login_screen.dart';
 import 'package:shop_savvy/shared/styles/styles.dart';
 import 'bloc_observer.dart';
+import 'layout/cubit/cubit.dart';
 import 'modules/onboarding/onboarding_screen.dart';
 import 'shared/network/local/cache_helper.dart';
 import 'shared/network/remote/dio_helper.dart';
@@ -24,15 +26,29 @@ void main() async {
   Bloc.observer = MyBlocObserver();
   DioHelper.init();
   await CacheHelper.init();
-
+  Widget widget;
   bool onBoarding = CacheHelper.getData(key: 'onBoarding') ?? false;
+  String token = CacheHelper.getData(key: 'token') ?? 'null';
 
-  runApp(MyApp(onBoarding));
+  if(onBoarding != false)
+  {
+    if(token!= 'null'){
+      widget = ShopLayout();
+    }else
+    {
+      widget = LoginScreen();
+    }
+  }else
+  {
+    widget = OnBoardingScreen();
+  }
+
+  runApp(MyApp(widget));
 }
 
 class MyApp extends StatelessWidget {
-  final bool onBoarding;
-  const MyApp(this.onBoarding, {super.key});
+  final Widget startWidget;
+  const MyApp(this.startWidget, {super.key});
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -40,6 +56,8 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
             create: (context) => ShopLoginCubit(ShopLoginInitialState())),
+        BlocProvider(
+            create: (context) => ShopCubit()),
       ],
       child: BlocConsumer<ShopLoginCubit, ShopLoginStates>(
         listener: (context, state) {},
@@ -50,7 +68,7 @@ class MyApp extends StatelessWidget {
             darkTheme: darkTheme,
             // themeMode:
             // NewsCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
-            home:onBoarding ? LoginScreen() : OnBoardingScreen(),
+            home:startWidget,
           );
         },
       ),

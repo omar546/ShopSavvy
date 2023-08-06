@@ -16,15 +16,15 @@ MaterialColor customColorOrange = const MaterialColor(0xFFFF3C38, {
 });
 
 ThemeData lightTheme = ThemeData(
-  // bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-  //   elevation: 30,
-  //   backgroundColor: MyColors.whiteColor,
-  //   type: BottomNavigationBarType.fixed,
-  //   selectedItemColor: MyColors.fire,
-  //   unselectedItemColor: MyColors.greyColor,
-  //   selectedLabelStyle: TextStyle(fontFamily: 'wilson'),
-  //   unselectedLabelStyle: TextStyle(fontFamily: 'wilson'),
-  // ),
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+    elevation: 30,
+    backgroundColor: MyColors.whiteColor,
+    type: BottomNavigationBarType.fixed,
+    selectedItemColor: MyColors.fire,
+    unselectedItemColor: MyColors.greyColor,
+    selectedLabelStyle: TextStyle(fontFamily: 'bebas'),
+    unselectedLabelStyle: TextStyle(fontFamily: 'bebas'),
+  ),
   appBarTheme: const AppBarTheme(
     iconTheme: IconThemeData(color: MyColors.fire),
     systemOverlayStyle: SystemUiOverlayStyle(
@@ -50,15 +50,15 @@ ThemeData lightTheme = ThemeData(
     )
 );
 ThemeData darkTheme = ThemeData(
-    // bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-    //   elevation: 30,
-    //   backgroundColor: MyColors.blackColor,
-    //   type: BottomNavigationBarType.fixed,
-    //   selectedItemColor: MyColors.fire,
-    //   unselectedItemColor: MyColors.greyColor,
-    //   selectedLabelStyle: TextStyle(fontFamily: 'wilson'),
-    //   unselectedLabelStyle: TextStyle(fontFamily: 'wilson'),
-    // ),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      elevation: 30,
+      backgroundColor: MyColors.blackColor,
+      type: BottomNavigationBarType.fixed,
+      selectedItemColor: MyColors.fire,
+      unselectedItemColor: MyColors.greyColor,
+      selectedLabelStyle: TextStyle(fontFamily: 'bebas'),
+      unselectedLabelStyle: TextStyle(fontFamily: 'bebas'),
+    ),
     appBarTheme: const AppBarTheme(
       iconTheme: IconThemeData(color: MyColors.whiteColor),
       systemOverlayStyle: SystemUiOverlayStyle(

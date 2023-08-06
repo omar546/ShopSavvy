@@ -1,9 +1,10 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shop_savvy/layout/shop_layout.dart';
 import 'package:shop_savvy/modules/login/cubit/login_cubit.dart';
 import 'package:shop_savvy/modules/login/cubit/login_states.dart';
+import 'package:shop_savvy/shared/network/local/cache_helper.dart';
 
 import '../../shared/components/components.dart';
 import '../register/register_screen.dart';
@@ -26,50 +27,25 @@ class LoginScreen extends StatelessWidget {
       child: BlocConsumer<ShopLoginCubit, ShopLoginStates>(
         listener: (context, state) {
           if (state is ShopLoginSuccessState) {
-            if (state.loginModel.status??false) {
+            if (state.loginModel.status ?? false) {
               print(state.loginModel.message);
               print(state.loginModel.data?.token);
-              Fluttertoast.showToast(
-                  msg: '${state.loginModel.message}',
-                  toastLength: Toast.LENGTH_LONG,
-                  gravity: ToastGravity.BOTTOM,
-                  timeInSecForIosWeb: 5,
-                  backgroundColor: Colors.green,
-                  textColor: Colors.white,
-                  fontSize: 16.0);
+              CacheHelper.saveData(
+                      key: 'token', value: state.loginModel.data?.token)
+                  .then((value) {
+                navigateAndFinish(context, ShopLayout());
+              });
             } else {
               print(state.loginModel.message);
-              Fluttertoast.showToast(
-                  msg: "${state.loginModel.message}",
-                  toastLength: Toast.LENGTH_LONG,
-                  gravity: ToastGravity.BOTTOM,
-                  timeInSecForIosWeb: 5,
-                  backgroundColor: Colors.red,
-                  textColor: Colors.white,
-                  fontSize: 16.0);
+              showToast(
+                  message: state.loginModel.message ?? '',
+                  state: ToastStates.ERROR);
             }
           }
         },
         builder: (context, state) {
           return Scaffold(
-            appBar: AppBar(
-              automaticallyImplyLeading: false,
-              elevation: 0.0,
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text(
-                    'Shop',
-                    style: TextStyle(fontSize: 30, fontFamily: 'bebas'),
-                  ),
-                  Text(
-                    'Savvy',
-                    style: TextStyle(fontSize: 30, fontFamily: 'futura'),
-                  ),
-                ],
-              ),
-              backgroundColor: Colors.transparent,
-            ),
+            appBar: buildAppBar(context),
             body: Padding(
               padding: const EdgeInsets.all(30.0),
               child: Center(

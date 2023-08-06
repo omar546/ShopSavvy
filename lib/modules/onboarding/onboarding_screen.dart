@@ -39,10 +39,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   ];
 
   bool isLast = false;
-  void submit()
-  {
-    CacheHelper.saveData(key: 'onBoarding', value: true).then((value){if(value){ navigateAndFinish(context, LoginScreen());}});
-
+  void submit() {
+    CacheHelper.saveData(key: 'onBoarding', value: true).then((value) {
+      if (value) {
+        navigateAndFinish(context, LoginScreen());
+      }
+    });
   }
 
   @override
@@ -126,8 +128,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   Widget buildOnBoardingItem(BoardingModel model) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
-              child: Center(child: Image(image: AssetImage(model.image)))),
+          Expanded(child: Center(child: Image(image: AssetImage(model.image)))),
           Text(
             model.title,
             style: const TextStyle(

@@ -1,6 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../styles/colors.dart';
+
+AppBar buildAppBar(
+  BuildContext context, {
+  bool automaticallyImplyLeading = false,
+      MainAxisAlignment title = MainAxisAlignment.center,
+      List<Widget>? actions,
+      bool showBrand = true,
+  }) {
+  return AppBar(
+    automaticallyImplyLeading: automaticallyImplyLeading,
+    elevation: 0.0,
+    title: Visibility(
+      visible: showBrand,
+      child: Row(
+        mainAxisAlignment: title,
+        children: const [
+          Text(
+            'Shop',
+            style: TextStyle(fontSize: 30, fontFamily: 'bebas'),
+          ),
+          Text(
+            'Savvy',
+            style: TextStyle(fontSize: 30, fontFamily: 'futura'),
+          ),
+        ],
+      ),
+    ),
+    backgroundColor: Colors.transparent,
+    actions: actions,
+  );
+}
 
 void navigateTo(context, widget) => Navigator.push(
     context,
@@ -70,11 +102,11 @@ Widget customForm({
       ),
       suffixIcon: suffix != null
           ? IconButton(
-        onPressed: suffixPressed,
-        icon: Icon(
-          suffix,
-        ),
-      )
+              onPressed: suffixPressed,
+              icon: Icon(
+                suffix,
+              ),
+            )
           : null,
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(25.0),
@@ -106,3 +138,36 @@ Widget customTextButton({
   );
 }
 
+void showToast({
+  required String message,
+  required ToastStates state,
+}) {
+  Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 5,
+      backgroundColor: chooseToastColor(state),
+      textColor: Colors.white,
+      fontSize: 16.0);
+}
+
+// enum
+enum ToastStates { SUCCESS, ERROR, WARNING }
+
+Color chooseToastColor(ToastStates state) {
+  Color color;
+  switch (state) {
+    case ToastStates.SUCCESS:
+      color = Colors.green;
+      break;
+    case ToastStates.ERROR:
+      color = Colors.red;
+      break;
+    case ToastStates.WARNING:
+      color = Colors.amber;
+      break;
+  }
+
+  return color;
+}
