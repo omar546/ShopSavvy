@@ -1,111 +1,52 @@
-import 'package:flutter/material.dart';
+import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_savvy/models/home_model.dart';
+import 'package:shop_savvy/shared/components/constants.dart';
+import 'package:shop_savvy/shared/cubit/states.dart';
+import 'package:shop_savvy/modules/favourites/favourites_screen.dart';
+import 'package:shop_savvy/modules/products/products_screen.dart';
+import 'package:shop_savvy/modules/settings/settings_screen.dart';
+import 'package:shop_savvy/shared/network/end_points.dart';
+import 'package:shop_savvy/shared/network/remote/dio_helper.dart';
 
+import '../../modules/categories/categories_screen.dart';
 
-import '../network/remote/dio_helper.dart';
-import 'states.dart';
+class ShopCubit extends Cubit<ShopStates>
+{
+  ShopCubit() : super(ShopInitialState());
+  static ShopCubit get(context) => BlocProvider.of(context);
 
-class NewsCubit extends Cubit<NewsStates> {
-  NewsCubit() : super(NewsInitialState());
-
-  static NewsCubit get(context) => BlocProvider.of(context);
   int currentIndex = 0;
-  List<BottomNavigationBarItem> bottomItems = [
-    const BottomNavigationBarItem(
-        icon: Icon(Icons.monetization_on), label: "Business"),
-    const BottomNavigationBarItem(icon: Icon(Icons.sports_basketball), label: "Sports"),
-    const BottomNavigationBarItem(
-        icon: Icon(Icons.science_rounded), label: "Science"),
-    // const BottomNavigationBarItem(
-    //     icon: Icon(Icons.settings), label: "Settings"),
+
+  List<Widget> Screens =[
+    ProductsScreen(),
+    CategoriesScreen(),
+    FavouritesScreen(),
+    SettingsScreen(),
   ];
-  void changeBottomNavBar(int index) {
+
+  void changeBottom(int index)
+  {
     currentIndex = index;
-    if (index == 1) {
-      getSports();
-    }
-    if (index == 2) {
-      getScience();
-    }
-    emit(NewsBottomNavState());
+    emit(ShopChangeBottomNavState());
   }
 
+  late HomeModel homeModel;
 
+  void getHomeData()
+  {
 
-
-  List<dynamic> business = [];
-
-  void getBusiness() {
-    emit(NewsGetBusinessLoadingState());
-    DioHelper.getData(url: 'v2/top-headlines', query: {
-      'country': 'eg',
-      'category': 'business',
-      'apiKey': '65f7f556ec76449fa7dc7c0069f040ca'
-    }).then((value) {
-      business = value.data['articles'];
-      emit(NewsGetBusinessSuccessState());
-    }).catchError((error) {
-      emit(NewsGetBusinessErrorState(error));
-    });
-  }
-
-  List<dynamic> sports = [];
-
-  void getSports() {
-    emit(NewsGetSportsLoadingState());
-    if (sports.isEmpty) {
-
-      DioHelper.getData(url: 'v2/top-headlines', query: {
-        'country': 'eg',
-        'category': 'sports',
-        'apiKey': '65f7f556ec76449fa7dc7c0069f040ca'
-      }).then((value) {
-        sports = value.data['articles'];
-        emit(NewsGetSportsSuccessState());
-      }).catchError((error) {
-        emit(NewsGetSportsErrorState(error));
-      });
-    } else {
-      emit(NewsGetScienceSuccessState());
-    }
-  }
-
-  List<dynamic> science = [];
-
-  void getScience() {
-    emit(NewsGetScienceLoadingState());
-
-    if (science.isEmpty) {
-      DioHelper.getData(url: 'v2/top-headlines', query: {
-        'country': 'eg',
-        'category': 'science',
-        'apiKey': '65f7f556ec76449fa7dc7c0069f040ca'
-      }).then((value) {
-        science = value.data['articles'];
-        emit(NewsGetScienceSuccessState());
-      }).catchError((error) {
-        emit(NewsGetScienceErrorState(error));
-      });
-    } else {
-      emit(NewsGetScienceSuccessState());
-    }
-  }
-
-
-  List<dynamic> search = [];
-
-  void getSearch(String value) {
-    emit(NewsGetSearchLoadingState());
-    DioHelper.getData(url: 'v2/everything', query: {
-      'q': value,
-      'apiKey': '65f7f556ec76449fa7dc7c0069f040ca'
-    }).then((value) {
-      search = value.data['articles'];
-      emit(NewsGetSearchSuccessState());
-    }).catchError((error) {
-      emit(NewsGetSearchErrorState(error));
+    emit(ShopLoadingHomeDataState());
+    DioHelper.getData(url: Home,token: token).then((value){
+      homeModel = HomeModel.fromJson(value.data);
+      printFullText(homeModel.data?.banners[0].image);
+      print(homeModel.status);
+      emit(ShopSuccessHomeDataState());
+    }).catchError((error){
+      print(error.toString());
+      emit(ShopErrorHomeDataState());
     });
 
   }
-
 }

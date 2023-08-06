@@ -1,37 +1,12 @@
-abstract class NewsStates{}
+abstract class ShopStates{}
 
-class NewsInitialState extends NewsStates{}
-class NewsBottomNavState extends NewsStates{}
-class NewsGetBusinessLoadingState extends NewsStates{}
-class NewsGetBusinessSuccessState extends NewsStates{}
-class NewsGetBusinessErrorState extends NewsStates{
-  final String error;
+class ShopInitialState extends ShopStates{}
 
-  NewsGetBusinessErrorState(this.error);
-}
+class ShopChangeBottomNavState extends ShopStates{}
 
-class NewsGetSportsLoadingState extends NewsStates{}
-class NewsGetSportsSuccessState extends NewsStates{}
-class NewsGetSportsErrorState extends NewsStates{
-  final String error;
+class ShopLoadingHomeDataState extends ShopStates{}
 
-  NewsGetSportsErrorState(this.error);
-}
+class ShopSuccessHomeDataState extends ShopStates{}
 
-class NewsGetScienceLoadingState extends NewsStates{}
-class NewsGetScienceSuccessState extends NewsStates{}
-class NewsGetScienceErrorState extends NewsStates{
-  final String error;
+class ShopErrorHomeDataState extends ShopStates{}
 
-  NewsGetScienceErrorState(this.error);
-}
-
-
-class NewsGetSearchLoadingState extends NewsStates{}
-class NewsGetSearchSuccessState extends NewsStates{}
-class NewsGetSearchErrorState extends NewsStates{
-  final String error;
-
-  NewsGetSearchErrorState(this.error);
-}
-// class AppChangeModeState extends NewsStates {}

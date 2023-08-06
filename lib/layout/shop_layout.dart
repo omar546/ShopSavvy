@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_savvy/layout/cubit/cubit.dart';
-import 'package:shop_savvy/layout/cubit/states.dart';
+import 'package:shop_savvy/shared/cubit/cubit.dart';
+import 'package:shop_savvy/shared/cubit/states.dart';
 import 'package:shop_savvy/modules/login/login_screen.dart';
 import 'package:shop_savvy/modules/search/search_screen.dart';
 import 'package:shop_savvy/shared/network/local/cache_helper.dart';

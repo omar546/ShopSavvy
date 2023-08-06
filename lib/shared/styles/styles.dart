@@ -23,7 +23,6 @@ ThemeData lightTheme = ThemeData(
     selectedItemColor: MyColors.fire,
     unselectedItemColor: MyColors.greyColor,
     selectedLabelStyle: TextStyle(fontFamily: 'bebas'),
-    unselectedLabelStyle: TextStyle(fontFamily: 'bebas'),
   ),
   appBarTheme: const AppBarTheme(
     iconTheme: IconThemeData(color: MyColors.fire),
@@ -57,7 +56,6 @@ ThemeData darkTheme = ThemeData(
       selectedItemColor: MyColors.fire,
       unselectedItemColor: MyColors.greyColor,
       selectedLabelStyle: TextStyle(fontFamily: 'bebas'),
-      unselectedLabelStyle: TextStyle(fontFamily: 'bebas'),
     ),
     appBarTheme: const AppBarTheme(
       iconTheme: IconThemeData(color: MyColors.whiteColor),

@@ -4,9 +4,10 @@ import 'package:shop_savvy/layout/shop_layout.dart';
 import 'package:shop_savvy/modules/login/cubit/login_cubit.dart';
 import 'package:shop_savvy/modules/login/cubit/login_states.dart';
 import 'package:shop_savvy/modules/login/login_screen.dart';
+import 'package:shop_savvy/shared/components/constants.dart';
 import 'package:shop_savvy/shared/styles/styles.dart';
 import 'bloc_observer.dart';
-import 'layout/cubit/cubit.dart';
+import 'shared/cubit/cubit.dart';
 import 'modules/onboarding/onboarding_screen.dart';
 import 'shared/network/local/cache_helper.dart';
 import 'shared/network/remote/dio_helper.dart';
@@ -28,7 +29,7 @@ void main() async {
   await CacheHelper.init();
   Widget widget;
   bool onBoarding = CacheHelper.getData(key: 'onBoarding') ?? false;
-  String token = CacheHelper.getData(key: 'token') ?? 'null';
+  token = CacheHelper.getData(key: 'token') ?? 'null';
 
   if(onBoarding != false)
   {
@@ -57,7 +58,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(
             create: (context) => ShopLoginCubit(ShopLoginInitialState())),
         BlocProvider(
-            create: (context) => ShopCubit()),
+            create: (context) => ShopCubit()..getHomeData()
+        ),
       ],
       child: BlocConsumer<ShopLoginCubit, ShopLoginStates>(
         listener: (context, state) {},
