@@ -32,7 +32,7 @@ class ShopCubit extends Cubit<ShopStates>
     emit(ShopChangeBottomNavState());
   }
 
-  late HomeModel homeModel;
+  HomeModel? homeModel;
 
   void getHomeData()
   {
@@ -40,8 +40,8 @@ class ShopCubit extends Cubit<ShopStates>
     emit(ShopLoadingHomeDataState());
     DioHelper.getData(url: Home,token: token).then((value){
       homeModel = HomeModel.fromJson(value.data);
-      printFullText(homeModel.data?.banners[0].image);
-      print(homeModel.status);
+      printFullText(homeModel?.data?.banners[0].image);
+      print(homeModel?.status);
       emit(ShopSuccessHomeDataState());
     }).catchError((error){
       print(error.toString());
