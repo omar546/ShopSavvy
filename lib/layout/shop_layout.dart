@@ -21,12 +21,15 @@ class ShopLayout extends StatelessWidget {
           appBar:
               buildAppBar(context, title: MainAxisAlignment.start, actions: [
             IconButton(
+              tooltip: 'Search',
               onPressed: () {
                 navigateTo(context, SearchScreen(),);
               },
               icon: Icon(Icons.search_rounded),
             ),
             IconButton(
+                tooltip: 'LogOut',
+
                 onPressed: () {
                   CacheHelper.removeData(key: 'token').then((value) {
                     if (value) {

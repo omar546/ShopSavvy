@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_savvy/models/categories_model.dart';
@@ -13,13 +14,18 @@ class CategoriesScreen extends StatelessWidget {
     return BlocConsumer<ShopCubit, ShopStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        return ListView.separated(
-            itemBuilder: (context, index) => buildCatItem(ShopCubit.get(context).categoriesModel?.data?.data[index]as DataModel,context),
-            separatorBuilder: (context, index) => Container(
-                  height: MediaQuery.of(context).size.height * 0.001,
-                  color: MyColors.greyColor,
-                ),
-            itemCount: ShopCubit.get(context).categoriesModel?.data?.data.length ?? 0);
+        return ConditionalBuilder(
+          condition: ShopCubit.get(context).homeModel != null &&
+              ShopCubit.get(context).categoriesModel != null,
+          builder:(context) => ListView.separated(
+              itemBuilder: (context, index) => buildCatItem(ShopCubit.get(context).categoriesModel.data?.data[index]as DataModel,context),
+              separatorBuilder: (context, index) => Container(
+                    height: MediaQuery.of(context).size.height * 0.001,
+                    color: MyColors.greyColor,
+                  ),
+              itemCount: ShopCubit.get(context).categoriesModel.data?.data.length ?? 0),
+          fallback: (context) => const Center(child: CircularProgressIndicator()),
+        );
       },
     );
   }

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_savvy/layout/shop_layout.dart';
@@ -30,18 +31,21 @@ void main() async {
   Widget widget;
   bool onBoarding = CacheHelper.getData(key: 'onBoarding') ?? false;
   token = CacheHelper.getData(key: 'token') ?? 'null';
+  if (kDebugMode) {
+    print(token);
+  }
 
   if(onBoarding != false)
   {
     if(token!= 'null'){
-      widget = ShopLayout();
+      widget = const ShopLayout();
     }else
     {
       widget = LoginScreen();
     }
   }else
   {
-    widget = OnBoardingScreen();
+    widget = const OnBoardingScreen();
   }
 
   runApp(MyApp(widget));
@@ -58,13 +62,14 @@ class MyApp extends StatelessWidget {
         BlocProvider(
             create: (context) => ShopLoginCubit(ShopLoginInitialState())),
         BlocProvider(
-            create: (context) => ShopCubit()..getHomeData()..getCategoriesData()
+            create: (context) => ShopCubit()..getHomeData()..getCategoriesData()..getFavData()
         ),
       ],
       child: BlocConsumer<ShopLoginCubit, ShopLoginStates>(
         listener: (context, state) {},
         builder: (context, state) {
           return MaterialApp(
+            themeMode: ThemeMode.light,
             debugShowCheckedModeBanner: false,
             theme: lightTheme,
             darkTheme: darkTheme,
