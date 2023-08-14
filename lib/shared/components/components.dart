@@ -88,6 +88,7 @@ Widget customForm({
   IconButton? suffixIcon,
 }) {
   return TextFormField(
+    enabled: isClickable,
     style: TextStyle(color: Theme.of(context).textTheme.bodyMedium?.color),
     controller: controller,
     keyboardType: type,

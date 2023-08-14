@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_savvy/shared/cubit/cubit.dart';
 import 'package:shop_savvy/shared/cubit/states.dart';
-import 'package:shop_savvy/modules/login/login_screen.dart';
 import 'package:shop_savvy/modules/search/search_screen.dart';
-import 'package:shop_savvy/shared/network/local/cache_helper.dart';
 
 import '../shared/components/components.dart';
 
@@ -27,20 +25,6 @@ class ShopLayout extends StatelessWidget {
               },
               icon: Icon(Icons.search_rounded),
             ),
-            IconButton(
-                tooltip: 'LogOut',
-
-                onPressed: () {
-                  CacheHelper.removeData(key: 'token').then((value) {
-                    if (value) {
-                      navigateAndFinish(
-                        context,
-                        LoginScreen(),
-                      );
-                    }
-                  });
-                },
-                icon: Icon(Icons.logout_rounded))
           ]),
           body: cubit.Screens[cubit.currentIndex],
           bottomNavigationBar: BottomNavigationBar(

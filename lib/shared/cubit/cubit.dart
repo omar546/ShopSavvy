@@ -13,6 +13,7 @@ import 'package:shop_savvy/modules/settings/settings_screen.dart';
 import 'package:shop_savvy/shared/network/end_points.dart';
 import 'package:shop_savvy/shared/network/remote/dio_helper.dart';
 
+import '../../models/login_model.dart';
 import '../../modules/categories/categories_screen.dart';
 
 class ShopCubit extends Cubit<ShopStates> {
@@ -25,7 +26,7 @@ class ShopCubit extends Cubit<ShopStates> {
     const ProductsScreen(),
     const CategoriesScreen(),
     const FavouritesScreen(),
-    const SettingsScreen(),
+    SettingsScreen(),
   ];
 
   void changeBottom(int index) {
@@ -122,6 +123,25 @@ class ShopCubit extends Cubit<ShopStates> {
         print(error.toString());
       }
       emit(ShopErrorGetFavDataState());
+    });
+  }
+
+  LoginModel? profModel;
+
+  void getProfData() {
+    emit(ShopLoadingProfDataState());
+
+    DioHelper.getData(url: PROFILE, token: token).then((value) {
+      profModel = LoginModel.formJson(value.data);
+      if (kDebugMode) {
+        print(profModel?.data?.name);
+      }
+      emit(ShopSuccessProfDataState(profModel!));
+    }).catchError((error) {
+      if (kDebugMode) {
+        print(error.toString());
+      }
+      emit(ShopErrorProfDataState());
     });
   }
 }

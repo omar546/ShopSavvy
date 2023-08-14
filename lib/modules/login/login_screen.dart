@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_savvy/layout/shop_layout.dart';
 import 'package:shop_savvy/modules/login/cubit/login_cubit.dart';
 import 'package:shop_savvy/modules/login/cubit/login_states.dart';
+import 'package:shop_savvy/shared/components/constants.dart';
 import 'package:shop_savvy/shared/network/local/cache_helper.dart';
 
 import '../../shared/components/components.dart';
@@ -33,6 +34,7 @@ class LoginScreen extends StatelessWidget {
               CacheHelper.saveData(
                       key: 'token', value: state.loginModel.data?.token)
                   .then((value) {
+                    token = state.loginModel.data?.token??'';
                 navigateAndFinish(context, ShopLayout());
               });
             } else {
@@ -155,7 +157,7 @@ class LoginScreen extends StatelessWidget {
                             const Text('Don\'t have an account?'),
                             customTextButton(
                               onPressed: () {
-                                navigateTo(context, const RegisterScreen());
+                                navigateTo(context, RegisterScreen());
                               },
                               text: 'REGISTER',
                               color: Colors.lightBlue,
