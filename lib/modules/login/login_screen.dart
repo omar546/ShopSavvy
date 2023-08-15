@@ -35,6 +35,8 @@ class LoginScreen extends StatelessWidget {
                       key: 'token', value: state.loginModel.data?.token)
                   .then((value) {
                     token = state.loginModel.data?.token??'';
+                    print(token);
+                    print('after log in ');
                 navigateAndFinish(context, ShopLayout());
               });
             } else {
@@ -139,6 +141,7 @@ class LoginScreen extends StatelessWidget {
                                   context: context,
                                   text: "LOGIN",
                                   onPressed: () {
+
                                     if (formKey.currentState!.validate()) {
                                       ShopLoginCubit.get(context).userLogin(
                                           email: emailController.text,

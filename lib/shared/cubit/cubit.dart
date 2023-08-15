@@ -90,10 +90,9 @@ class ShopCubit extends Cubit<ShopStates> {
         printFullText(value.data.toString());
       }
 
-      if(!changeFavouritesModel.status!)
-      {
+      if (!changeFavouritesModel.status!) {
         favourites[productId] = !favourites[productId]!;
-      }else{
+      } else {
         getFavData();
       }
       emit(ShopSuccessChangeFavouritesDataState(changeFavouritesModel));
@@ -142,6 +141,35 @@ class ShopCubit extends Cubit<ShopStates> {
         print(error.toString());
       }
       emit(ShopErrorProfDataState());
+    });
+  }
+
+  void updateProfData({
+    required String name,
+    required String email,
+    required String phone,
+  }) {
+    emit(ShopLoadingUpdateProfDataState());
+
+    DioHelper.putData(
+            url: UPDATE_PROFILE,
+            data: {
+              'name': name,
+              'email': email,
+              'phone': phone,
+            },
+            token: token)
+        .then((value) {
+      profModel = LoginModel.formJson(value.data);
+      if (kDebugMode) {
+        print(profModel?.data?.name);
+      }
+      emit(ShopSuccessUpdateProfDataState(profModel!));
+    }).catchError((error) {
+      if (kDebugMode) {
+        print(error.toString());
+      }
+      emit(ShopErrorUpdateProfDataState());
     });
   }
 }
