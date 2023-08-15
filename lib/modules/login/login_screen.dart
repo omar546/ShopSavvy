@@ -1,4 +1,5 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_savvy/layout/shop_layout.dart';
@@ -29,18 +30,28 @@ class LoginScreen extends StatelessWidget {
         listener: (context, state) {
           if (state is ShopLoginSuccessState) {
             if (state.loginModel.status ?? false) {
-              print(state.loginModel.message);
-              print(state.loginModel.data?.token);
+              if (kDebugMode) {
+                print(state.loginModel.message);
+              }
+              if (kDebugMode) {
+                print(state.loginModel.data?.token);
+              }
               CacheHelper.saveData(
                       key: 'token', value: state.loginModel.data?.token)
                   .then((value) {
                     token = state.loginModel.data?.token??'';
-                    print(token);
-                    print('after log in ');
+                    if (kDebugMode) {
+                      print(token);
+                    }
+                    if (kDebugMode) {
+                      print('after log in ');
+                    }
                 navigateAndFinish(context, ShopLayout());
               });
             } else {
-              print(state.loginModel.message);
+              if (kDebugMode) {
+                print(state.loginModel.message);
+              }
               showToast(
                   message: state.loginModel.message ?? '',
                   state: ToastStates.ERROR);
@@ -82,10 +93,14 @@ class LoginScreen extends StatelessWidget {
                           controller: emailController,
                           type: TextInputType.emailAddress,
                           onSubmit: (String value) {
-                            print(value);
+                            if (kDebugMode) {
+                              print(value);
+                            }
                           },
                           onChange: (String value) {
-                            print(value);
+                            if (kDebugMode) {
+                              print(value);
+                            }
                           },
                           validate: (value) {
                             if (value!.isEmpty) {
@@ -114,7 +129,9 @@ class LoginScreen extends StatelessWidget {
                             }
                           },
                           onChange: (String value) {
-                            print(value);
+                            if (kDebugMode) {
+                              print(value);
+                            }
                           },
                           validate: (value) {
                             if (value!.isEmpty) {

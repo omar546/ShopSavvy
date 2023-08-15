@@ -1,4 +1,5 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -30,16 +31,22 @@ class RegisterScreen extends StatelessWidget {
         listener: (context, state) {
           if (state is ShopRegisterSuccessState) {
             if (state.loginModel.status ?? false) {
-              print(state.loginModel.message);
-              print(state.loginModel.data?.token);
+              if (kDebugMode) {
+                print(state.loginModel.message);
+              }
+              if (kDebugMode) {
+                print(state.loginModel.data?.token);
+              }
               CacheHelper.saveData(
                       key: 'token', value: state.loginModel.data?.token)
                   .then((value) {
                 token = state.loginModel.data?.token ?? '';
-                navigateAndFinish(context, ShopLayout());
+                navigateAndFinish(context, const ShopLayout());
               });
             } else {
-              print(state.loginModel.message);
+              if (kDebugMode) {
+                print(state.loginModel.message);
+              }
               showToast(
                   message: state.loginModel.message ?? '',
                   state: ToastStates.ERROR);
@@ -81,10 +88,14 @@ class RegisterScreen extends StatelessWidget {
                               controller: nameController,
                               type: TextInputType.name,
                               onSubmit: (String value) {
-                                print(value);
+                                if (kDebugMode) {
+                                  print(value);
+                                }
                               },
                               onChange: (String value) {
-                                print(value);
+                                if (kDebugMode) {
+                                  print(value);
+                                }
                               },
                               validate: (value) {
                                 if (value!.isEmpty) {
@@ -104,10 +115,14 @@ class RegisterScreen extends StatelessWidget {
                               controller: emailController,
                               type: TextInputType.emailAddress,
                               onSubmit: (String value) {
-                                print(value);
+                                if (kDebugMode) {
+                                  print(value);
+                                }
                               },
                               onChange: (String value) {
-                                print(value);
+                                if (kDebugMode) {
+                                  print(value);
+                                }
                               },
                               validate: (value) {
                                 if (value!.isEmpty) {
@@ -139,7 +154,9 @@ class RegisterScreen extends StatelessWidget {
                                 }
                               },
                               onChange: (String value) {
-                                print(value);
+                                if (kDebugMode) {
+                                  print(value);
+                                }
                               },
                               validate: (value) {
                                 if (value!.isEmpty) {
@@ -166,10 +183,14 @@ class RegisterScreen extends StatelessWidget {
                               controller: phoneController,
                               type: TextInputType.phone,
                               onSubmit: (String value) {
-                                print(value);
+                                if (kDebugMode) {
+                                  print(value);
+                                }
                               },
                               onChange: (String value) {
-                                print(value);
+                                if (kDebugMode) {
+                                  print(value);
+                                }
                               },
                               validate: (value) {
                                 if (value!.isEmpty) {

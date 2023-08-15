@@ -46,10 +46,10 @@ class CategoriesScreen extends StatelessWidget {
           ),
           Text(
             model.name?.toUpperCase()??'',
-            style: TextStyle(fontSize: 15.0,fontFamily: 'bitter-bold',overflow: TextOverflow.ellipsis),
+            style: const TextStyle(fontSize: 15.0,fontFamily: 'bitter-bold',overflow: TextOverflow.ellipsis),
           ),
-          Spacer(),
-          Icon(Icons.arrow_forward_ios,color: MyColors.fire,)
+          const Spacer(),
+          const Icon(Icons.arrow_forward_ios,color: MyColors.fire,)
         ],
       ),
     );

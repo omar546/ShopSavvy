@@ -42,7 +42,7 @@ ThemeData lightTheme = ThemeData(
     bodySmall: TextStyle(
         color: MyColors.blackColor.withOpacity(0.5), fontFamily: 'bitter'),
   ),
-    inputDecorationTheme: InputDecorationTheme(
+    inputDecorationTheme: const InputDecorationTheme(
         prefixIconColor: MyColors.blackColor,
         suffixIconColor: MyColors.blackColor,
         labelStyle: TextStyle(color: MyColors.blackColor),
@@ -75,7 +75,7 @@ ThemeData darkTheme = ThemeData(
       bodySmall: TextStyle(
           color: MyColors.greyColor.withOpacity(0.5), fontFamily: 'bitter'),
     ),
-    inputDecorationTheme: InputDecorationTheme(
+    inputDecorationTheme: const InputDecorationTheme(
         prefixIconColor: MyColors.greyColor,
         suffixIconColor: MyColors.greyColor,
         labelStyle: TextStyle(color: MyColors.greyColor)));

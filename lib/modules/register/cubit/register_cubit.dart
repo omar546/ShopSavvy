@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_savvy/models/login_model.dart';
@@ -29,11 +30,15 @@ void userRegister({
     'password':password,
     'phone':phone,
   }).then((value){
-    print(value.data);
+    if (kDebugMode) {
+      print(value.data);
+    }
     loginModel = LoginModel.formJson(value.data);
     emit(ShopRegisterSuccessState(loginModel));
   }).catchError((error){
-    print(error.toString());
+    if (kDebugMode) {
+      print(error.toString());
+    }
     emit(ShopRegisterErrorState(error.toString()));
   });
 }

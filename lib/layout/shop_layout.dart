@@ -23,7 +23,7 @@ class ShopLayout extends StatelessWidget {
               onPressed: () {
                 navigateTo(context, SearchScreen(),);
               },
-              icon: Icon(Icons.search_rounded),
+              icon: const Icon(Icons.search_rounded),
             ),
           ]),
           body: cubit.Screens[cubit.currentIndex],
@@ -34,7 +34,7 @@ class ShopLayout extends StatelessWidget {
             onTap: (index){
               cubit.changeBottom(index);
             },
-            items: [
+            items: const [
               BottomNavigationBarItem(
                 activeIcon: Icon(Icons.shopping_bag),
                 icon: Icon(Icons.shopping_bag_outlined),

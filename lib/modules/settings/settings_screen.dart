@@ -16,6 +16,8 @@ class SettingsScreen extends StatelessWidget {
   var emailController = TextEditingController();
   var phoneController = TextEditingController();
 
+  SettingsScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ShopCubit, ShopStates>(
@@ -86,7 +88,7 @@ class SettingsScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         // Spacer(),
-                        Text('Edit'),
+                        const Text('Edit'),
                         IconButton(
                             tooltip: 'Edit',
                             onPressed: () {
@@ -97,14 +99,14 @@ class SettingsScreen extends StatelessWidget {
                                     phone: phoneController.text);
                               }
                             },
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.edit,
                               color: MyColors.fire,
                             )),
-                        SizedBox(
+                        const SizedBox(
                           width: 20,
                         ),
-                        Text('LogOut'),
+                        const Text('LogOut'),
                         IconButton(
                             tooltip: 'LogOut',
                             onPressed: () {
@@ -118,7 +120,7 @@ class SettingsScreen extends StatelessWidget {
                                 }
                               });
                             },
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.logout_rounded,
                               color: MyColors.fire,
                             )),
