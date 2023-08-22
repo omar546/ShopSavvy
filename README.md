@@ -10,7 +10,7 @@
 </h1>
 
 
-<h4 align="center">Used: BLoC-Cubit, Dio-RestfulApi, sharedPrefs and used PostMan debugging and testing the API</h4>
+<h4 align="center">Used: MVVM, BLoC-Cubit, Dio-RestfulApi, sharedPrefs and used PostMan debugging and testing the API</h4>
 
 <h3 align="center">
 
